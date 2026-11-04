@@ -18,3 +18,13 @@ bb settings ai-services set commit-message opencode-go
 ```
 
 See `skills/opencode-go/SKILL.md` for status messages and troubleshooting.
+
+Install from GitHub:
+
+```sh
+bb plugin install git:https://github.com/scowalt/bb-plugin-opencode-go.git
+```
+
+## License
+
+MIT
