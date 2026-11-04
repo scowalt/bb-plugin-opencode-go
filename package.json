@@ -1,0 +1,36 @@
+{
+  "name": "bb-plugin-opencode-go",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "bb": ">=0.48",
+    "bbPluginSdk": ">=0.6.104 <0.7"
+  },
+  "bb": {
+    "name": "OpenCode Go",
+    "description": "Write bb thread titles and commit messages with your OpenCode Go subscription.",
+    "branding": {
+      "icon": "Sparkles"
+    },
+    "server": "./server.ts"
+  },
+  "scripts": {
+    "build": "bb plugin build",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/*.test.ts"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@get-bb/plugin-sdk": "0.6.104",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.3.0",
+    "better-sqlite3": "^12.0.0",
+    "cron-parser": "^5.5.0",
+    "hono": "^4.11.9",
+    "typescript": "^5.7.0"
+  }
+}
