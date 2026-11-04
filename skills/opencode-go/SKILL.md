@@ -16,11 +16,12 @@ bb settings ai-services show
 bb settings ai-services set thread-title opencode-go
 bb settings ai-services set commit-message opencode-go
 bb settings ai-services test thread-title
-bb plugin config opencode-go set model glm-5.3-flash
+bb plugin config opencode-go set model deepseek-v4.1-flash
 bb plugin reload opencode-go
 ```
 
-- The model defaults to `deepseek-v4.1-flash`. A model change takes effect after
+- The model defaults to `glm-5.3-flash`, which answered in 1.4-2.3 s in testing;
+  `deepseek-v4.1-flash` took up to 6 s. A model change takes effect after
   `bb plugin reload opencode-go`.
 - Automatic mode tries bb cloud first, then registered services by plugin id, so
   `opencode-go` comes before Codex. Choosing `opencode-go` explicitly never falls
@@ -30,8 +31,8 @@ bb plugin reload opencode-go
 
 The plugin reads the key that `opencode auth login` stores under `opencode-go` in
 `$XDG_DATA_HOME/opencode/auth.json` (default `~/.local/share/opencode/auth.json`)
-on the bb server machine. `OPENCODE_GO_API_KEY` in the server's environment
-overrides it. Never print or paste the key.
+on the bb server machine. `OPENCODE_GO_API_KEY` in the server's environment is
+used only when that file has no OpenCode Go key. Never print or paste the key.
 
 ## Status
 

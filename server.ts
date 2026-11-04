@@ -11,7 +11,7 @@ export default async function plugin(bb: BbPluginApi) {
       type: "string",
       label: "Model",
       description:
-        "OpenCode Go model id for thread titles and commit messages, such as deepseek-v4.1-flash or glm-5.3-flash. Reload the plugin after changing it.",
+        "OpenCode Go model id for thread titles and commit messages, such as glm-5.3-flash or deepseek-v4.1-flash. Reload the plugin after changing it.",
       default: DEFAULT_MODEL,
     },
   });

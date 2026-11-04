@@ -5,8 +5,8 @@ and commit messages, using an [OpenCode Go](https://opencode.ai/docs/go/)
 subscription instead of Codex or bb cloud.
 
 - Endpoint: `https://opencode.ai/inference/go/openai/v1/chat/completions`
-- Default model: `deepseek-v4.1-flash` (setting: `model`)
-- Key: `opencode-go` entry in opencode's `auth.json`, or `OPENCODE_GO_API_KEY`
+- Default model: `glm-5.3-flash` (setting: `model`)
+- Key: `opencode-go` entry in opencode's `auth.json`, falling back to `OPENCODE_GO_API_KEY`
 
 ```sh
 npm install --include=dev

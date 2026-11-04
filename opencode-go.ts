@@ -7,7 +7,7 @@ import { z } from "zod";
 export const CHAT_COMPLETIONS_URL =
   "https://opencode.ai/inference/go/openai/v1/chat/completions";
 export const USER_AGENT = "bb-plugin-opencode-go/0.1.0";
-export const DEFAULT_MODEL = "deepseek-v4.1-flash";
+export const DEFAULT_MODEL = "glm-5.3-flash";
 export const ACCESS_FAILURE_COOLDOWN_MS = 10 * 60 * 1000;
 const MAX_TOKENS = 1024;
 const ACCESS_FAILURE_STATUSES = new Set([401, 402, 403]);
@@ -40,9 +40,13 @@ export function opencodeAuthPath(env: NodeJS.ProcessEnv = process.env): string {
 export async function readOpencodeGoKey(
   env: NodeJS.ProcessEnv = process.env,
 ): Promise<KeyResult> {
+  const fromFile = await readAuthFileKey(opencodeAuthPath(env));
+  if (fromFile.ok) return fromFile;
   const fromEnv = env.OPENCODE_GO_API_KEY?.trim();
-  if (fromEnv) return { ok: true, key: fromEnv };
-  const path = opencodeAuthPath(env);
+  return fromEnv ? { ok: true, key: fromEnv } : fromFile;
+}
+
+async function readAuthFileKey(path: string): Promise<KeyResult> {
   let raw: string;
   try {
     raw = await readFile(path, "utf8");

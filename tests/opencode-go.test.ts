@@ -87,10 +87,14 @@ test("a missing key is reported by status and by complete without calling the AP
   assert.equal(calls.length, 0);
 });
 
-test("reads the key from opencode's auth file, preferring OPENCODE_GO_API_KEY", async () => {
+test("prefers the key opencode auth login stored over a stale OPENCODE_GO_API_KEY", async () => {
   const dataHome = await mkdtemp(join(tmpdir(), "opencode-go-"));
   const env = { XDG_DATA_HOME: dataHome };
   assert.equal((await readOpencodeGoKey(env)).ok, false);
+  assert.deepEqual(
+    await readOpencodeGoKey({ ...env, OPENCODE_GO_API_KEY: "env-key" }),
+    { ok: true, key: "env-key" },
+  );
   await mkdir(join(dataHome, "opencode"));
   await writeFile(
     join(dataHome, "opencode", "auth.json"),
@@ -99,6 +103,6 @@ test("reads the key from opencode's auth file, preferring OPENCODE_GO_API_KEY", 
   assert.deepEqual(await readOpencodeGoKey(env), { ok: true, key: "file-key" });
   assert.deepEqual(
     await readOpencodeGoKey({ ...env, OPENCODE_GO_API_KEY: "env-key" }),
-    { ok: true, key: "env-key" },
+    { ok: true, key: "file-key" },
   );
 });
